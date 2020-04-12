@@ -17,7 +17,7 @@ export class EditorComponent implements OnInit {
   note: Note;
 
   noteUpdate = new Subject<void>();
-  noteUpdate$ = this.noteUpdate.pipe(debounceTime(300));
+  noteUpdate$ = this.noteUpdate.pipe(debounceTime(100));
 
   constructor(private store: Store) { }
 
