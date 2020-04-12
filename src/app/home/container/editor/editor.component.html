@@ -1,0 +1,22 @@
+<div
+    fxLayout="column"
+    fxFlex="grow"
+>
+    <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        class="date-bar"
+    >
+        <span class="mat-body-2">{{ note.createdAt | date:'medium' }}</span>
+    </div>
+
+    <content-editor
+        fxFlex="1 1 calc(100% - 4rem)"
+        [(ngModel)]="note.description"
+        (ngModelChange)="onChange($event)"
+    >
+        <!--  -->
+
+    </content-editor>
+
+</div>

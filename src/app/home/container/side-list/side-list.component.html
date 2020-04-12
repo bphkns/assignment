@@ -2,8 +2,11 @@
     fxLayout="column"
     fxLayoutAlign="center start"
     class="list-item"
+    (click)="onClick()"
 >
-    <span class="list-header mat-body-2">{{ header }}</span>
-    <span class="list-body mat-body-1">{{ time }}
-        {{ body }}</span>
+    <span class="list-header mat-body-2">{{ note.name | titlePipe }}</span>
+    <span class="list-body mat-body-1">
+        <span class="mat-body-2 date">{{ note.createdAt | datePipe  }}&nbsp;</span>
+        {{ note.description | descPipe }}
+    </span>
 </div>

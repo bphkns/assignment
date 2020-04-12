@@ -1,28 +1,18 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import * as moment from 'moment/moment';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Note } from 'src/app/modes/note.model';
 
 @Component({
   selector: 'app-side-list',
   templateUrl: './side-list.component.html',
   styleUrls: ['./side-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SideListComponent implements OnInit {
 
   @Input()
-  header: string;
-
-  @Input()
-  id: string;
-
-  @Input()
-  body: string;
-
-  @Input()
-  date: Date;
+  note: Note;
 
   @Output()
-  clicked = new EventEmitter<string>();
+  clicked = new EventEmitter<Note>();
 
   constructor() {
   }
@@ -31,12 +21,8 @@ export class SideListComponent implements OnInit {
   }
 
   onClick(): void {
-    this.clicked.emit(this.id);
+    this.clicked.emit(this.note);
   }
 
-
-  public get time() {
-    return moment().format('dddd');
-  }
 
 }

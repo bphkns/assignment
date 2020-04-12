@@ -5,7 +5,7 @@ export const slideInAnimation =
     trigger('routeAnimations', [
         transition('* => Home', [
             query(':enter, :leave',
-                style({ position: 'fixed', width: '100%' }),
+                style({ position: 'relative' }),
                 { optional: true }),
             group([
                 query(':enter', [

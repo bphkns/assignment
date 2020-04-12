@@ -1,0 +1,12 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'titlePipe'
+})
+export class TitlePipe implements PipeTransform {
+
+  transform(value: string): string {
+    return value.length > 0 ? value : 'New note';
+  }
+
+}

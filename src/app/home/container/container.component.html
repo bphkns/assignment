@@ -7,12 +7,13 @@
     fxLayout="column"
 >
     <div
-        class="mat-elevation-z3 toolbar"
+        [@MyInsertRemoveTrigger]
+        class="mat-elevation-z1 toolbar"
         fxLayout="row"
     >
 
         <div
-            fxFlex.gt-sm="30%"
+            fxFlex.gt-sm="40%"
             fxLayout="row"
             fxHide.lt-md="true"
             fxLayoutAlign.gt-sm="space-between center"
@@ -48,7 +49,7 @@
 
             <div
                 fxLayout="row"
-                fxLayoutAlign="space-evenly center"
+                fxLayoutAlign="space-around center"
                 class="action-buttons"
             >
                 <button
@@ -58,13 +59,20 @@
 
                     <mat-icon svgIcon="sidebar"></mat-icon>
                 </button>
+                <button
+                    mat-icon-button
+                    aria-label="Toggle view icon"
+                >
+
+                    <mat-icon>view_module</mat-icon>
+                </button>
             </div>
         </div>
         <div
             fxFlex.gt-sm="70%"
             fxFlex.lt-md="100%"
             fxLayout="row"
-            fxLayoutAlign="space-between center"
+            fxLayoutAlign="space-evenly center"
             class="action-panel-all"
         >
             <div
@@ -73,14 +81,8 @@
             >
                 <button
                     mat-icon-button
-                    aria-label="Toggle view icon"
-                >
-
-                    <mat-icon>view_module</mat-icon>
-                </button>
-                <button
-                    mat-icon-button
                     aria-label="Delete icon"
+                    (click)="deleteNote()"
                 >
 
                     <mat-icon>delete</mat-icon>
@@ -88,6 +90,7 @@
                 <button
                     mat-icon-button
                     aria-label="Create icon"
+                    (click)="createNote()"
                 >
 
                     <mat-icon>create</mat-icon>
@@ -120,13 +123,25 @@
             class="sidebar mat-elevation-z1"
         >
             <app-side-list
-                [header]="'Lorem ipsum dolor sit amet'"
-                [body]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'"
-                [id]="'1'"
-                [date]="date"
+                *ngFor="let note of notes$ | async;trackBy:trackByNote"
+                [@MyInsertRemoveTrigger]
+                [note]="note"
+                (clicked)="openNote(note)"
+                [ngClass]="{ 'active': note.id && selectedNote && selectedNote.id && note.id === selectedNote.id}"
             >
-
             </app-side-list>
+        </div>
+
+        <div
+            fxFlex.lt-md="100%"
+            fxFlex.gt-sm="70%"
+            fxLayout="row"
+        >
+            <app-editor
+                *ngIf="selectedNote"
+                [note]="selectedNote"
+                fxFlexFill
+            ></app-editor>
         </div>
     </div>
 </div>

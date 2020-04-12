@@ -9,8 +9,9 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { IconService } from './icon.service';
+import { IconService } from './services/icon.service';
 import { HttpClientModule } from '@angular/common/http';
+import { DataService } from './services/data.service';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
       disabled: environment.production
     })
   ],
-  providers: [IconService],
+  providers: [IconService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

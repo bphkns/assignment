@@ -1,8 +1,7 @@
-.toolbar{
+.toolbar {
     padding-top: 1rem;
     padding-right: 2rem;
 }
-
 
 .action-panel-desktop {
     padding-left: 1rem;
@@ -10,13 +9,50 @@
 }
 
 .action-panel-all {
-    button{ 
+    button {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
 }
 
-.container-body{
+.container-body {
     min-height: 50vh;
+    max-height: 50vh;
 }
 
+.sidebar {
+    max-height: 100%;
+    overflow: auto;
+}
+
+.active {
+    background-color: rgb(239, 243, 199);
+    margin-top: -0.1rem;
+}
+
+app-side-list:hover {
+    background-color: rgb(239, 240, 232);
+    transition: all 100ms ease-in-out;
+    cursor: pointer;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.35rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 1rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 1rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}

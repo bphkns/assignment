@@ -1,9 +1,12 @@
 .list-item {
     margin: 0.5rem 1rem 0 1rem;
     font-size: 0.85rem;
-    border-bottom: 0.01rem solid bisque;
+    user-select: none;
+    border-bottom: 0.1rem solid rgb(250, 234, 234);
+    transition: all 100ms ease-in-out;
 }
 
+.list-header,
 .list-body {
     max-width: 100%;
     text-align: left;
@@ -11,4 +14,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-bottom: 0.5rem;
+}
+
+.date {
+    color: rgb(96, 97, 41);
 }
