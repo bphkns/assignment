@@ -13,7 +13,7 @@
     >
 
         <div
-            fxFlex.gt-sm="40%"
+            fxFlex.gt-sm="30%"
             fxLayout="row"
             fxHide.lt-md="true"
             fxLayoutAlign.gt-sm="space-between center"
@@ -54,6 +54,7 @@
             >
                 <button
                     mat-icon-button
+                    (click)="toggleCollapse()"
                     aria-label="Toggle sidebar icon"
                 >
 
@@ -77,8 +78,15 @@
         >
             <div
                 fxLayout="row"
-                fxLayoutAlign="space-between center"
+                fxLayoutAlign="start center"
             >
+                <button
+                    mat-icon-button
+                    aria-label="Back to view"
+                    (click)="backtoview()"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
                 <button
                     mat-icon-button
                     aria-label="Delete icon"
@@ -96,13 +104,6 @@
                     <mat-icon>create</mat-icon>
                 </button>
 
-                <button
-                    mat-icon-button
-                    aria-label="Lock note icon"
-                >
-
-                    <mat-icon>lock</mat-icon>
-                </button>
             </div>
 
             <mat-form-field appearance="fill">
@@ -120,7 +121,8 @@
             fxFlex.gt-sm="30%"
             fxHide.lt-md="true"
             fxLayout="column"
-            class="sidebar mat-elevation-z1"
+            class="sidebar mat-elevation-z4"
+            *ngIf="!collapse"
         >
             <app-side-list
                 *ngFor="let note of notes$ | async;trackBy:trackByNote"
@@ -131,11 +133,34 @@
             >
             </app-side-list>
         </div>
+        <div
+            *ngIf="(isMobile && !selectedNote) || (!selectedNote && collapse)"
+            fxFlex="grow"
+            [ngStyle]="{'padding': '1rem'}"
+            fxLayout="row wrap"
+            fxLayoutGap="0.5rem"
+            class="card-container"
+            [@MyInsertRemoveTrigger]
+        >
+            <mat-card
+                class="card"
+                *ngFor="let note of notes$ | async;trackBy:trackByNote"
+                (click)="openNote(note)"
+            >
+                <mat-card-title>
+                    <mat-card-subtitle>
+                        {{ note.createdAt | datePipe  }}&nbsp; {{ note.name | titlePipe }}
+                    </mat-card-subtitle>
+                </mat-card-title>
+                <mat-card-content>{{ note.description | descPipe }}</mat-card-content>
+            </mat-card>
+        </div>
 
         <div
             fxFlex.lt-md="100%"
-            fxFlex.gt-sm="70%"
+            fxFlex.gt-sm="!collapse ? '70%' : '100%'"
             fxLayout="row"
+            *ngIf="(selectedNote)"
         >
             <app-editor
                 *ngIf="selectedNote"

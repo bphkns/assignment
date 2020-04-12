@@ -28,7 +28,7 @@ import { IconService } from './services/icon.service';
       developmentMode: !environment.production
     }),
     NgxsStoragePluginModule.forRoot({
-      key: ['notes']
+      key: ['notes', 'preferences']
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production

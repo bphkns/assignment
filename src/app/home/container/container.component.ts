@@ -7,6 +7,7 @@ import { Note } from 'src/app/modes/note.model';
 import { IconService } from 'src/app/services/icon.service';
 import { GetNotes, AddNote, DeleteNote } from '../actions/notes.action';
 import { NotesState } from '../state/note.state';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-container',
@@ -27,14 +28,19 @@ import { NotesState } from '../state/note.state';
 })
 export class ContainerComponent implements OnInit {
 
-
+  isMobile = false;
   @Select(NotesState) notes$: Observable<Note[]>;
   selectedNote: Note;
+  collapse = false;
 
-  constructor(private iconService: IconService, private fb: FormBuilder, private store: Store, private actions$: Actions) {
+  constructor(
+    private iconService: IconService, private fb: FormBuilder, private store: Store, private actions$: Actions,
+    breakpointObserver: BreakpointObserver) {
+    this.isMobile = breakpointObserver.isMatched('(max-width: 599px)');
   }
 
   ngOnInit(): void {
+    this.store.dispatch(new GetNotes());
     this.iconService.registerIcons();
   }
 
@@ -51,17 +57,30 @@ export class ContainerComponent implements OnInit {
     const id = '_' + Math.random().toString(36).substr(2, 9);
     this.store.dispatch(new AddNote({ id, name: '', description: '{}', createdAt: new Date().toISOString() }));
     this.selectedNote = null;
-    this.selectedNote = this.store.snapshot().notes.length > 0 ? { ...this.store.snapshot().notes[0] } : null;
+    if (!this.collapse) {
+      this.selectedNote = this.store.snapshot().notes.length > 0 ? { ...this.store.snapshot().notes[0] } : null;
+    }
   }
 
   deleteNote() {
+
     if (!this.selectedNote) {
       return;
     }
 
     this.store.dispatch(new DeleteNote(this.selectedNote));
     this.selectedNote = null;
-    this.selectedNote = this.store.snapshot().notes.length > 0 ? { ...this.store.snapshot().notes[0] } : null;
+    if (!this.collapse) {
+      this.selectedNote = this.store.snapshot().notes.length > 0 ? { ...this.store.snapshot().notes[0] } : null;
+    }
   }
 
+  toggleCollapse() {
+    this.collapse = !this.collapse;
+  }
+
+
+  backtoview() {
+    this.selectedNote = null;
+  }
 }
