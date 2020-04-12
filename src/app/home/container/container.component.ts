@@ -50,6 +50,8 @@ export class ContainerComponent implements OnInit {
   createNote() {
     const id = '_' + Math.random().toString(36).substr(2, 9);
     this.store.dispatch(new AddNote({ id, name: '', description: '{}', createdAt: new Date().toISOString() }));
+    this.selectedNote = null;
+    this.selectedNote = this.store.snapshot().notes.length > 0 ? { ...this.store.snapshot().notes[0] } : null;
   }
 
   deleteNote() {
@@ -59,7 +61,7 @@ export class ContainerComponent implements OnInit {
 
     this.store.dispatch(new DeleteNote(this.selectedNote));
     this.selectedNote = null;
-    this.selectedNote = this.store.snapshot().notes.length > 0 ? this.store.snapshot().notes[0] : null;
+    this.selectedNote = this.store.snapshot().notes.length > 0 ? { ...this.store.snapshot().notes[0] } : null;
   }
 
 }
