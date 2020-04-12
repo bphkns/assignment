@@ -20,6 +20,17 @@ export class NotesState {
     constructor(private dataService: DataService) { }
 
 
+    @Action(GetNotes)
+    getNotes(ctx: StateContext<Note[]>) {
+        const state = ctx.getState();
+        state.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).reverse();
+        ctx.setState(
+            [
+                ...state
+            ]
+        );
+    }
+
     @Action(AddNote)
     addNote(ctx: StateContext<Note[]>, action: AddNote) {
 
@@ -34,10 +45,11 @@ export class NotesState {
 
     @Action(UpdateNote, { cancelUncompleted: true })
     updateNote(ctx: StateContext<Note[]>, action: UpdateNote) {
-        const state = ctx.getState().filter(n => n.id !== action.note.id);
+        const index = ctx.getState().findIndex(n => n.id === action.note.id);
+        const state = [...ctx.getState()];
+        state[index] = action.note;
         ctx.setState(
             [
-                action.note,
                 ...state
             ]
         );
