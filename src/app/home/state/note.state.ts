@@ -20,42 +20,26 @@ export class NotesState {
     constructor(private dataService: DataService) { }
 
 
-    @Action(GetNotes)
-    fetchNotes(ctx: StateContext<Note[]>) {
-        return this.dataService.getNotes().pipe(
-            tap(notes => {
-                ctx.setState([...notes]);
-            })
-        );
-    }
-
     @Action(AddNote)
     addNote(ctx: StateContext<Note[]>, action: AddNote) {
-        return this.dataService.createNote(action.payload).pipe(
-            tap(note => {
-                const state = ctx.getState();
-                ctx.setState(
-                    [
-                        note,
-                        ...state
-                    ]
-                );
-            })
+
+        const state = ctx.getState();
+        ctx.setState(
+            [
+                action.payload,
+                ...state
+            ]
         );
     }
 
     @Action(UpdateNote, { cancelUncompleted: true })
     updateNote(ctx: StateContext<Note[]>, action: UpdateNote) {
-        return this.dataService.updateNote(action.note).pipe(
-            tap(note => {
-                const state = ctx.getState().filter(n => n.id !== note.id);
-                ctx.setState(
-                    [
-                        note,
-                        ...state
-                    ]
-                );
-            })
+        const state = ctx.getState().filter(n => n.id !== action.note.id);
+        ctx.setState(
+            [
+                action.note,
+                ...state
+            ]
         );
     }
 
@@ -67,7 +51,6 @@ export class NotesState {
                 ...state
             ]
         );
-        return this.dataService.deleteNote(action.note);
     }
 
 }

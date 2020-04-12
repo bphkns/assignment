@@ -36,7 +36,6 @@ export class ContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.iconService.registerIcons();
-    this.store.dispatch(new GetNotes());
   }
 
 
@@ -49,7 +48,8 @@ export class ContainerComponent implements OnInit {
   }
 
   createNote() {
-    this.store.dispatch(new AddNote({ name: '', description: '{}', createdAt: new Date().toISOString() }));
+    const id = '_' + Math.random().toString(36).substr(2, 9);
+    this.store.dispatch(new AddNote({ id, name: '', description: '{}', createdAt: new Date().toISOString() }));
   }
 
   deleteNote() {

@@ -6,7 +6,7 @@ export class GetNotes {
 
 export class AddNote {
     static readonly type = '[Note] Add note';
-    constructor(public payload: { name: string; description: string; createdAt: string }) { }
+    constructor(public payload: Note) { }
 }
 
 export class GetNote {
