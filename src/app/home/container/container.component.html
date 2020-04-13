@@ -84,6 +84,7 @@
                     mat-icon-button
                     aria-label="Back to view"
                     (click)="backtoview()"
+                    *ngIf="selectedNote"
                 >
                     <mat-icon>arrow_back</mat-icon>
                 </button>
@@ -106,10 +107,16 @@
 
             </div>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field
+                appearance="fill"
+                *ngIf="!selectedNote"
+            >
                 <mat-label>Search</mat-label>
                 <mat-icon matPrefix>search</mat-icon>
-                <input matInput>
+                <input
+                    matInput
+                    [formControl]="filterNotesCtrl"
+                >
             </mat-form-field>
         </div>
     </div>
@@ -128,6 +135,7 @@
                 *ngFor="let note of notes$ | async;trackBy:trackByNote"
                 [@MyInsertRemoveTrigger]
                 [note]="note"
+                [filterText]="filterText"
                 (clicked)="openNote(note)"
                 [ngClass]="{ 'active': note.id && selectedNote && selectedNote.id && note.id === selectedNote.id}"
             >
@@ -149,10 +157,13 @@
             >
                 <mat-card-title>
                     <mat-card-subtitle>
-                        {{ note.createdAt | datePipe  }}&nbsp; {{ note.name | titlePipe }}
+                        {{ note.createdAt | datePipe  }}&nbsp;
+                        <div [innerHTML]="note.description | titlePipe: filterText"></div>
                     </mat-card-subtitle>
                 </mat-card-title>
-                <mat-card-content>{{ note.description | descPipe }}</mat-card-content>
+                <mat-card-content>
+                    <div [innerHTML]="note.description | descPipe: filterText"></div>
+                </mat-card-content>
             </mat-card>
         </div>
 

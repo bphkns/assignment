@@ -23,6 +23,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NotesState } from './state/note.state';
 import { TitlePipe } from './pipe/title.pipe';
 import { DescriptionPipe } from './pipe/description.pipe';
+import { HighlightedTextComponent } from './container/highlighted-text/highlighted-text.component';
 
 
 @NgModule({

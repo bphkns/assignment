@@ -20,9 +20,10 @@ export class NotesState {
     constructor(private dataService: DataService) { }
 
 
+
     @Action(GetNotes)
     getNotes(ctx: StateContext<Note[]>) {
-        const state = ctx.getState();
+        const state = [...ctx.getState()];
         state.sort((a, b) => a.createdAt.localeCompare(b.createdAt)).reverse();
         ctx.setState(
             [

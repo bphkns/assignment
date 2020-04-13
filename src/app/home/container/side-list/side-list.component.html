@@ -4,9 +4,12 @@
     class="list-item"
     (click)="onClick()"
 >
-    <span class="list-header mat-body-2">{{ note.name | titlePipe }}</span>
+    <div
+        class="list-header mat-body-2"
+        [innerHTML]="note.description | titlePipe: filterText"
+    ></div>
     <span class="list-body mat-body-1">
         <span class="mat-body-2 date">{{ note.createdAt | datePipe  }}&nbsp;</span>
-        {{ note.description | descPipe }}
+        <div [innerHTML]="note.description | descPipe: filterText"></div>
     </span>
 </div>

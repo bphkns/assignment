@@ -11,6 +11,9 @@ export class SideListComponent implements OnInit {
   @Input()
   note: Note;
 
+  @Input()
+  filterText: string;
+
   @Output()
   clicked = new EventEmitter<Note>();
 
