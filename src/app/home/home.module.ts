@@ -23,11 +23,12 @@ import { NgxsModule } from '@ngxs/store';
 import { NotesState } from './state/note.state';
 import { TitlePipe } from './pipe/title.pipe';
 import { DescriptionPipe } from './pipe/description.pipe';
+import { HighlightedTextComponent } from './container/highlighted-text/highlighted-text.component';
 
 
 @NgModule({
   declarations: [
-    HomeComponent, ContainerComponent, SideListComponent, EditorComponent, DatePipe, ContentEditorComponent, TitlePipe, DescriptionPipe
+    HomeComponent, ContainerComponent, SideListComponent, EditorComponent, DatePipe, ContentEditorComponent, TitlePipe, DescriptionPipe, HighlightedTextComponent
   ],
   imports: [
     CommonModule,
